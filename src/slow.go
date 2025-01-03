@@ -5,7 +5,12 @@ import (
 	"net/http"
 )
 
+func handleIndex(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "/landing/", http.StatusFound)
+}
+
 func main() {
+	http.HandleFunc("/",                handleIndex)
 	http.HandleFunc("/landing/",        handleLanding)
 	http.HandleFunc("/signup/",         handleSignup)
 	http.HandleFunc("/postsignup/",     handlePostSignup)

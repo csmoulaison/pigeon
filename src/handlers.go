@@ -67,3 +67,12 @@ func handleSettings(w http.ResponseWriter, r *http.Request) {
 func handleModifySettings(w http.ResponseWriter, r *http.Request) {
 	// TODO: implement
 }
+
+// Send mail
+func handleSend(w http.ResponseWriter, r *http.Request) {
+	// TODO: implement
+}
+
+func handlePostSend(w http.ResponseWriter, r *http.Request) {
+	// TODO: implement
+}
