@@ -1,0 +1,19 @@
+<h1>Slow</h1>
+<h2>Log in</h2>
+<form action="/login/">
+	<label for="username"><b>Handle</b></label>
+	<input type="text" placeholder="Enter handle" name="username" required>
+
+	<label for="password"><b>Password</b></label>
+	<input type="password" placeholder="Enter password" name="password" required>
+
+	<button type="submit">Login</button>
+	{{if .BadLogin}}
+	<p>Incorrect username or password.</p>
+	{{end}}
+</form>
+<ul>
+	{{range .Users}}
+	<li>{{.Handle}}</li>
+	{{end}}
+</ul>
