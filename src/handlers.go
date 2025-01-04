@@ -12,7 +12,6 @@ import "net/http"
 // - send.go
 
 // Auth handlers
-	}
 func handleSignup(w http.ResponseWriter, r *http.Request, ) {
 	executeStaticTemplate(w, "signup.html")
 }

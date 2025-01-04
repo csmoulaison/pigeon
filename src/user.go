@@ -58,18 +58,18 @@ func (u *User) save() error {
 	}
 
 	// R = Mailbox (received) letter cached id
-	for _, index := range u.MailboxCache {
+	for _, id := range u.MailboxCache {
 		mailboxCache := []string{
 			"R",
-			handle}
+			strconv.Itoa(id)}
 		writer.Write(mailboxCache)
 	}
 
 	// S = Sent letter cached id
-	for _, handle := range u.SentCache {
+	for _, id := range u.SentCache {
 		sentCache := []string{
 			"S",
-			handle}
+			strconv.Itoa(id)}
 		writer.Write(sentCache)
 	}
 
@@ -113,9 +113,19 @@ func loadUser(handle string) (User, error) {
 		case "C": // Contact
 			u.Rolodex = append(u.Rolodex, row[1])
 		case "R": // Mailbox (received) letters cached id
-			u.MailboxCache = append(u.MailboxCache, atoi(row[1])
+			id := 0
+			id, err = strconv.Atoi(row[1])
+			if err != nil {
+				return User{}, err
+			}
+			u.MailboxCache = append(u.MailboxCache, id)
 		case "S": // Sent letters cached id
-			u.SentCache = append(u.SentCache, atoi(row[1])
+			id := 0
+			id, err = strconv.Atoi(row[1])
+			if err != nil {
+				return User{}, err
+			}
+			u.SentCache = append(u.SentCache, id)
 		}
 	}
 	return u, nil
