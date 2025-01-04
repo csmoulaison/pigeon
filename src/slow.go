@@ -10,6 +10,8 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// TODO: Session management for users, somehow distributed to all the "post
+	// login" pages.
 	http.HandleFunc("/",                handleIndex)
 	http.HandleFunc("/landing/",        handleLanding)
 	http.HandleFunc("/signup/",         handleSignup)
@@ -25,6 +27,10 @@ func main() {
 	http.HandleFunc("/deletecontact/",  handleDeleteContact)
 	http.HandleFunc("/settings/",       handleDeleteMail)
 	http.HandleFunc("/modifysettings/", handleModifySettings)
+	http.HandleFunc("/send/", handleSend)
+	http.HandleFunc("/postsend/", handlePostSend)
+	http.HandleFunc("/confirmsend/", handleConfirmSend)
 
+	// TODO: Maybe command line arg for port?
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

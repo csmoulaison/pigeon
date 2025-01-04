@@ -2,27 +2,33 @@ package main
 
 import "net/http"
 
+// TODO: Split and deprecate this file per concern. The current split by comment
+// is probably fine.
+// - auth.go
+// - mailbox.go
+// - sent.go
+// - rolodex.go
+// - settings.go
+// - send.go
+
 // Auth handlers
-func handleSignup(w http.ResponseWriter, r *http.Request) {
-	err := templates.ExecuteTemplate(w, "signup.html", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+func handleSignup(w http.ResponseWriter, r *http.Request, ) {
+	executeStaticTemplate(w, "signup.html")
 }
 
 func handleConfirmSignup(w http.ResponseWriter, r *http.Request) {
-	err := templates.ExecuteTemplate(w, "confirmsignup.html", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	executeStaticTemplate(w, "confirmsignup.html")
 }
 
 func handlePostSignup(w http.ResponseWriter, r *http.Request) {
+	// TODO: Check for duplicate users (dupl. emails fine)
 	u := &User{
 		Handle: r.FormValue("username"),
 		Password: r.FormValue("password"),
 		DisplayName: r.FormValue("displayname"),
 		Email: r.FormValue("email"),
+		// Checkboxes aren't sent as form values if they aren't checked, hence:
 		NotifyByEmail: (r.FormValue("notifybyemail") != "")}
 	u.save()
 	http.Redirect(w, r, "/confirmsignup/", http.StatusFound)
@@ -89,5 +95,9 @@ func handleSend(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlePostSend(w http.ResponseWriter, r *http.Request) {
+	// TODO: implement
+}
+
+func handleConfirmSend(w http.ResponseWriter, r *http.Request) {
 	// TODO: implement
 }
