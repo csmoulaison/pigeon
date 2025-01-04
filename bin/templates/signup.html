@@ -1,0 +1,24 @@
+{{template "header" "Sign up"}}
+
+<h1>Sign up</h1>
+<form action="/postsignup/">
+	<label for="username"><b>Enter a handle used to identify you.</b></label>
+	<input type="text" placeholder="Enter handle" name="username" required>
+
+	<label for="password"><b>Enter a password.</b></label>
+	<input type="password" placeholder="Enter password" name="password" required>
+
+	<label for="displayname"><b>Optionally enter a more friendly name.</b></label>
+	<input type="text" placeholder="Enter display name" name="displayname">
+
+	<label for="email"><b>Optionally enter an email used to notify you of new messages.</b></label>
+	<input type="email" placeholder="Enter email" name="email">
+
+	<label for="notifybyemail"><b>Should we notify you via this email?</b></label>
+	<input type="checkbox" name="notifybyemail">
+
+	<a href="/landing/">Cancel</a>
+	<button type="submit">Sign up</button>
+</form>
+
+{{template "footer"}}

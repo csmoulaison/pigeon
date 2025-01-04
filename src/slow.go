@@ -13,6 +13,7 @@ func main() {
 	http.HandleFunc("/",                handleIndex)
 	http.HandleFunc("/landing/",        handleLanding)
 	http.HandleFunc("/signup/",         handleSignup)
+	http.HandleFunc("/confirmsignup/",         handleConfirmSignup)
 	http.HandleFunc("/postsignup/",     handlePostSignup)
 	http.HandleFunc("/login/",          handleLogin)
 	http.HandleFunc("/logout/",         handleLogout)

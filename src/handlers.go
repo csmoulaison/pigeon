@@ -4,13 +4,28 @@ import "net/http"
 
 // Auth handlers
 func handleSignup(w http.ResponseWriter, r *http.Request) {
-	// TODO: implement
+	err := templates.ExecuteTemplate(w, "signup.html", nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func handleConfirmSignup(w http.ResponseWriter, r *http.Request) {
+	err := templates.ExecuteTemplate(w, "confirmsignup.html", nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func handlePostSignup(w http.ResponseWriter, r *http.Request) {
-	u := &User{Handle: r.FormValue("username"), Password: r.FormValue("password")}
+	u := &User{
+		Handle: r.FormValue("username"),
+		Password: r.FormValue("password"),
+		DisplayName: r.FormValue("displayname"),
+		Email: r.FormValue("email"),
+		NotifyByEmail: (r.FormValue("notifybyemail") != "")}
 	u.save()
-	http.Redirect(w, r, "/landing/", http.StatusFound)
+	http.Redirect(w, r, "/confirmsignup/", http.StatusFound)
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {

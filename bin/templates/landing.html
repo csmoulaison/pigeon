@@ -1,3 +1,5 @@
+{{template "header" "Sign up"}}
+
 <h1>Slow</h1>
 <h2>Log in</h2>
 <form action="/login/">
@@ -12,8 +14,13 @@
 	<p>Incorrect username or password.</p>
 	{{end}}
 </form>
+
+<a href="/signup/">Sign up</a>
+
 <ul>
 	{{range .Users}}
 	<li>{{.Handle}}</li>
 	{{end}}
 </ul>
+
+{{template "footer"}}
