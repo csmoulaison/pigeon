@@ -9,28 +9,52 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/landing/", http.StatusFound)
 }
 
-func main() {
-	// TODO: Can we abstract these locked handlers further, indirecting the call to
-	// http.HandleFunc(), for instance?
-	http.HandleFunc("/",                handleIndex)
-	http.HandleFunc("/landing/",        handleLanding)
-	http.HandleFunc("/signup/",         staticHandler("signup"))
-	http.HandleFunc("/confirmsignup/",  staticHandler("confirmsignup"))
-	http.HandleFunc("/postsignup/",     handlePostSignup)
-	http.HandleFunc("/login/",          handleLogin)
-	http.HandleFunc("/logout/",         handleLogout)
+// Two things we want to accomplish right now:
+// 1. Have a way to easily configure a route to pass session handle to a route
+// 2. Abstract http.HandleFunc further to reduce redundancy
 
-	http.HandleFunc("/mailbox/",       	lockedHandler(handleMailbox, "/mailbox/"))
-	http.HandleFunc("/deletemail/",     lockedHandler(handleDeleteMail, "/deleteemail/"))
-	http.HandleFunc("/sent/",           lockedHandler(handleSent, "/sent/"))
-	http.HandleFunc("/deletesent/",     lockedHandler(handleSent, "/deletesent/"))
-	http.HandleFunc("/rolodex/",        lockedHandler(handleSent, "/rolodex/"))
-	http.HandleFunc("/deletecontact/",  lockedHandler(handleSent, "/deletecontact/"))
-	http.HandleFunc("/settings/",       lockedHandler(handleSent, "/settings/"))
-	http.HandleFunc("/modifysettings/", lockedHandler(handleSent, "/modifysettings/"))
-	http.HandleFunc("/send/",           lockedHandler(handleSent, "/send/"))
-	http.HandleFunc("/postsend/",       lockedHandler(handleSent, "/postsend/"))
-	http.HandleFunc("/confirmsend/",    lockedHandler(handleSent, "/confirmsend/"))
+func route(p string, f http.HandlerFunc) {
+	http.HandleFunc("/" + p + "/", f)
+}
+
+func staticRoute(p string) {
+	f := func(w http.ResponseWriter, r *http.Request) {
+		renderTemplate(w, p, nil)
+	}
+	http.HandleFunc("/" + p + "/", f)
+}
+
+func lockedRoute(p string, f http.HandlerFunc) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		handle := r.URL.Path[len("/" + p + "/"):]
+		if !storedTokenValid(r, handle) {
+			http.Redirect(w, r, "/landing/", http.StatusFound)
+		}
+		f(w, r)
+	}
+	http.HandleFunc("/" + p + "/", handler)
+}
+
+func main() {
+	route("/", handleIndex)
+	route("landing", handleLanding)
+	staticRoute("signup")
+	staticRoute("confirmSignup")
+	route("postsignup", handlePostSignup)
+	route("login", handleLogin)
+	route("logout", handleLogout)
+
+	lockedRoute("mailbox", handleMailbox)
+	lockedRoute("deletemail", handleDeleteMail)
+	lockedRoute("sent", handleSent)
+	lockedRoute("deletesent", handleSent)
+	lockedRoute("rolodex", handleSent)
+	lockedRoute("deletecontact", handleSent)
+	lockedRoute("settings", handleSent)
+	lockedRoute("modifysettings", handleSent)
+	lockedRoute("send", handleSent)
+	lockedRoute("postsend", handleSent)
+	lockedRoute("confirmsend", handleSent)
 
 	// TODO: Maybe command line arg for port?
 	log.Fatal(http.ListenAndServe(":8080", nil))
