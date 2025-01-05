@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-const UserDir = "./data/users/"
+const UserDir = "data/users/"
 const UserFileExt = ".slowuser"
 
 type User struct {

@@ -9,6 +9,13 @@ type LandingTemplateData struct {
 
 // Landing page (pre-sign in)
 func handleLanding(w http.ResponseWriter, r *http.Request) {
+	handle, err := storedHandle(r)
+	if err == nil {
+		if storedTokenValid(r, handle) {
+			http.Redirect(w, r, "/mailbox/" + handle, http.StatusFound)
+		}
+	}
+
 	tmplData := LandingTemplateData{BadLogin: false}	
 
 	suffix := r.URL.Path[len("/landing/"):]
@@ -16,7 +23,6 @@ func handleLanding(w http.ResponseWriter, r *http.Request) {
 		tmplData.BadLogin = true	
 	}
 
-	var err error
 	tmplData.Users, err = getUserList()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

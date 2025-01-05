@@ -7,8 +7,8 @@ import(
 
 var templates = template.Must(template.ParseGlob("templates/*.html"))
 
-func executeStaticTemplate(w http.ResponseWriter, fname string) {
-	err := templates.ExecuteTemplate(w, fname, nil)
+func renderTemplate(w http.ResponseWriter, tmpl string, data any) {
+	err := templates.ExecuteTemplate(w, tmpl + ".html", data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
