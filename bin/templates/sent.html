@@ -10,7 +10,7 @@
 			{{range .Letters}}
 			<li class="listletter">
 				<div class='listdate'>{{.Created.Format "01/02/06"}}</div>
-				<div class='listtitle'><a href="/view/{{.Id}}">{{.Title}}</a></div>
+				<div class='listtitle'><a href="/view/?id={{.Id}}">{{.Title}}</a></div>
 				<div class='listhandle'>sent to <strong><em>{{.Recipient}}</em></strong></div>
 			</li>
 			{{end}}
@@ -18,6 +18,6 @@
 	{{ end }}
 </div>
 
-{{template "footernav" .User.Handle}}
+{{template "footernav" .User}}
 
 {{template "footer"}}

@@ -21,6 +21,7 @@ func handlePostSend(w http.ResponseWriter, r *http.Request) {
 	l.Title = r.FormValue("title")
 	l.Body = r.FormValue("body")
 	l.Created = time.Now()
+	l.Read = false
 
 	// Cache letter id with sender
 	sender := sessionUser(w, r)

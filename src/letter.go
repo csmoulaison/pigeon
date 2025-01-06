@@ -19,6 +19,7 @@ type Letter struct {
 	Created time.Time
 	Sender string
 	Recipient string
+	Read bool
 	Body string
 }
 
@@ -57,6 +58,11 @@ func (l *Letter) save() error {
 	w.WriteString(l.Created.Format(LetterDateFmt) + "\n")
 	w.WriteString(l.Sender + "\n")
 	w.WriteString(l.Recipient + "\n")
+	readString := "1"
+	if !l.Read {
+		readString = "0"
+	}
+	w.WriteString(readString)
 	w.WriteString(l.Body)
 	w.Flush()
 
@@ -90,6 +96,9 @@ func loadLetter(id int) (Letter, error) {
 
 	s.Scan()
 	l.Recipient = s.Text()
+
+	s.Scan()
+	l.Read = s.Text() == "1"
 
 	for s.Scan() {
 		l.Body += s.Text()

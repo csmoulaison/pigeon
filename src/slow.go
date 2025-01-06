@@ -58,6 +58,7 @@ func main() {
 	lockedRoute("deletemail", handleDeleteMail)
 	lockedRoute("sent", handleSent)
 	lockedRoute("deletesent", handleDeleteSent)
+	lockedRoute("view", handleView)
 	lockedRoute("rolodex", handleRolodex)
 	lockedRoute("deletecontact", handleDeleteContact)
 	lockedRoute("settings", handleSettings)

@@ -10,14 +10,18 @@
 			{{range .Letters}}
 			<li class="listletter">
 				<div class='listdate'>{{.Created.Format "01/02/06"}}</div>
-				<div class='listtitle'><a href="/view/{{.Id}}">{{.Title}}</a></div>
+				<div class='listtitle'><a href="/view/?id={{.Id}}">{{.Title}}</a></div>
 				<div class='listhandle'>from <strong><em>{{.Sender}}</em></strong></div>
+				{{if eq .Read false}}
+					<div class='listnew'>(new)</div>
+				{{end}}
+				<div>
 			</li>
 			{{end}}
 		</ul>
 	{{ end }}
 </div>
 
-{{template "footernav" .User.Handle}}
+{{template "footernav" .User}}
 
 {{template "footer"}}

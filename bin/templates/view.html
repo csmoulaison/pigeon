@@ -1,0 +1,13 @@
+{{template "header" .Letter.Title}}
+
+<a class="backlink" href="/mailbox/">&laquo; Back to mailbox</a>
+<h1 class="lettertitle">{{.Letter.Title}}</h1>
+<h2 class="lettersub">from <em>{{.Letter.Sender}}</em> to <em>{{.Letter.Recipient}}</em></h2>
+<div class="letterbody">
+	{{range .Paragraphs}}
+		<p>{{.}}</p>
+	{{end}}
+</div>
+
+{{template "footernav" .User}}
+{{template "footer"}}
