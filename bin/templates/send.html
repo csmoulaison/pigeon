@@ -1,0 +1,20 @@
+{{template "header" "Letter Confirmation"}}
+
+<h1>Send letter</h1>
+<p><a href="/mailbox/">Return to your mailbox.</a></p>
+
+<form action="/postsend/">
+	<label for="recipient"><b>Send to:</b></label>
+	<input type="text" placeholder="Enter recipient handle" name="recipient" required>
+
+	<label for="title"><b>Letter title:</b></label>
+	<input type="text" placeholder="Enter letter title" name="title" required>
+
+	<label for="body"><b>Letter body:</b></label>
+	<textarea name="body" placeholder="Enter letter body" rows="10"></textarea>
+
+	<a href="/mailbox/">Cancel</a>
+	<button type="submit">Send</button>
+</form>
+
+{{template "footer"}}

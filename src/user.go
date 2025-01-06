@@ -131,7 +131,7 @@ func loadUser(handle string) (User, error) {
 	return u, nil
 }
 
-func getUserList() ([]User, error) {
+func allUsers() ([]User, error) {
 	files, err := ioutil.ReadDir(UserDir)
 	if err != nil {
 		return nil, err
@@ -140,7 +140,7 @@ func getUserList() ([]User, error) {
 	users := []User{}
 	for _, f := range files {
 		fname := f.Name()
-		u, err := loadUser(fname[:strings.Index(fname, ".slowuser")])
+		u, err := loadUser(fname[:strings.Index(fname, UserFileExt)])
 		if err != nil {
 			return nil, err
 		}

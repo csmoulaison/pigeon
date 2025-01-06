@@ -1,22 +1,50 @@
 package main
 
 import (
+	"strings"
 	"os"
-	"encoding/csv"
 	"strconv"
+	"bufio"
+	"net/http"
+	"time"
 )
 
 const LetterDir = "./data/letters/"
 const LetterFileExt = ".slowletter"
+const LetterDateFmt = time.DateTime
 
 type Letter struct {
 	Id int
 	Title string
+	Created time.Time
+	Sender string
+	Recipient string
 	Body string
 }
 
+func newLetterId() (int, error) {
+    files, err := os.ReadDir(LetterDir)
+    if err != nil {
+		return 0, err
+    }
+
+    highestId := 0
+    for _, f := range files {
+	    fname := f.Name()
+	    id := 0
+		id, err = strconv.Atoi(fname[:strings.Index(fname, LetterFileExt)])
+		if err != nil {
+			return 0, err
+		}
+
+		if id > highestId {
+			highestId = id
+		}
+    }
+	return highestId + 1, nil
+}
+
 func (l *Letter) save() error {
-	// TODO: Eliminate redundancy with User.save()
 	fname := LetterDir + strconv.Itoa(l.Id) + LetterFileExt
 	f, err := os.Create(fname)
 	if err != nil {
@@ -24,21 +52,18 @@ func (l *Letter) save() error {
 	}
 	defer f.Close()
 
-	writer := csv.NewWriter(f)
-	defer writer.Flush()
-
-	// See csv scheme for letter data in loadLetter()
-	letter := []string {
-		strconv.Itoa(l.Id),
-		l.Title,
-		l.Body} // TODO: Sanitize body text delimiters and such. Something like that.
-	writer.Write(letter)
+	w := bufio.NewWriter(f)
+	w.WriteString(l.Title + "\n")
+	w.WriteString(l.Created.Format(LetterDateFmt) + "\n")
+	w.WriteString(l.Sender + "\n")
+	w.WriteString(l.Recipient + "\n")
+	w.WriteString(l.Body)
+	w.Flush()
 
 	return nil
 }
 
 func loadLetter(id int) (Letter, error) {
-	// TODO: Eliminate redundancy with loadUser
 	fname := LetterDir + strconv.Itoa(id) + LetterFileExt
 	f, err := os.Open(fname)
 	if err != nil {
@@ -46,17 +71,47 @@ func loadLetter(id int) (Letter, error) {
 	}
 	defer f.Close()
 
-	reader := csv.NewReader(f)
-	reader.FieldsPerRecord = -1
-	data, err := reader.ReadAll()
-	if err != nil {
-		return Letter{}, err
-	}
+	s := bufio.NewScanner(f)
 
 	l := Letter{}
-	row := data[0] // TODO: check len
-	l.Id    = id
-	l.Title = row[1]	
-	l.Body  = row[2]
+	l.Id = id
+
+	s.Scan()
+	l.Title = s.Text()
+
+	s.Scan()
+	l.Created, err = time.Parse(LetterDateFmt, s.Text())
+	if err != nil {
+		return l, err
+	}
+
+	s.Scan()
+	l.Sender = s.Text()
+
+	s.Scan()
+	l.Recipient = s.Text()
+
+	for s.Scan() {
+		l.Body += s.Text()
+		l.Body += "\n"
+	}
+
+	if err = s.Err(); err != nil {
+        return l, err
+    }
+
 	return l, nil
 }
+
+func lettersFromCache(w http.ResponseWriter, cache []int) []Letter {
+	letters := []Letter{}
+	for _, id := range cache {
+		l, err := loadLetter(id)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		letters = append(letters, l)
+	}
+	return letters
+}
+

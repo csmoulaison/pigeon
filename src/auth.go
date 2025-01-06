@@ -43,7 +43,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
         Path:  "/"}
     http.SetCookie(w, handleCookie)
 
-	http.Redirect(w, r, "/mailbox/" + u.Handle, http.StatusFound)
+	http.Redirect(w, r, "/mailbox/", http.StatusFound)
 }
 
 func handleLogout(w http.ResponseWriter, r *http.Request) {
@@ -72,6 +72,26 @@ func clearSession(r *http.Request) error {
 		return err
 	}
 	return nil
+}
+
+func sessionUser(w http.ResponseWriter, r *http.Request) User {
+	u := User{}
+
+	h, err := storedHandle(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	if !storedTokenValid(r, h) {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	u, err = loadUser(h)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	return u
 }
 
 func storedHandle(r *http.Request) (string, error) {

@@ -12,7 +12,7 @@ func handleLanding(w http.ResponseWriter, r *http.Request) {
 	handle, err := storedHandle(r)
 	if err == nil {
 		if storedTokenValid(r, handle) {
-			http.Redirect(w, r, "/mailbox/" + handle, http.StatusFound)
+			http.Redirect(w, r, "/mailbox/", http.StatusFound)
 		}
 	}
 
@@ -23,7 +23,7 @@ func handleLanding(w http.ResponseWriter, r *http.Request) {
 		tmplData.BadLogin = true	
 	}
 
-	tmplData.Users, err = getUserList()
+	tmplData.Users, err = allUsers()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

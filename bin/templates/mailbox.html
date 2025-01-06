@@ -2,9 +2,22 @@
 
 {{template "nav"}}
 
-<h1>Hello, {{.}}!</h1>
-<h2>Welcome to your mailbox.</h2>
+<div class="list">
+	{{if eq (len .Letters) 0}}
+		<p>You haven't received any letters yet.</p>
+	{{ else }}
+		<ul class="list">
+			{{range .Letters}}
+			<li class="listletter">
+				<div class='listdate'>{{.Created.Format "01/02/06"}}</div>
+				<div class='listtitle'><a href="/view/{{.Id}}">{{.Title}}</a></div>
+				<div class='listhandle'>from <strong><em>{{.Sender}}</em></strong></div>
+			</li>
+			{{end}}
+		</ul>
+	{{ end }}
+</div>
 
-{{template "footernav"}}
+{{template "footernav" .User.Handle}}
 
 {{template "footer"}}
