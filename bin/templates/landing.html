@@ -1,7 +1,8 @@
 {{template "header" "Sign up"}}
 
-<h1>Pigeon</h1>
-<h2>Log in</h2>
+<div class="landingtitle">
+	<h1>Pigeon</h1>
+</div>
 <form class="loginform" action="/login/">
 	<label for="username"><b>Handle</b></label>
 	<input type="text" placeholder="Enter handle" name="username" required>
@@ -9,14 +10,18 @@
 	<label for="password"><b>Password</b></label>
 	<input type="password" placeholder="Enter password" name="password" required>
 
-	<button type="submit">Login</button>
+	<button class="loginbutton" type="submit">Login</button>
 	{{if .BadLogin}}
-	<p>Incorrect username or password.</p>
+		<p class="bad">Incorrect username or password.</p>
 	{{end}}
 </form>
 
-<a href="/signup/">Sign up</a>
-
-<h2>What is Pigeon?</h2>
+<h2 class="landingsub">What is Pigeon?</h2>
+<a class="signupprompt" href="/signup/">New to Pigeon? Click here to sign up.</a>
+<p>I wrote Pigeon in the Go programming language as a learning project and as an experimental communication platform.</p>
+<p>It's just like a regular messaging platform, except that messages only appear in the recipient's mailbox after an artificial two day delay period.</p>
+<p>Yep, we're using modern internet tech to emulate snail mail. Retro nostalgia culture gone amock!</p>
+<p>Feel free to sign up and give it a try. I wouldn't count on any of your messages being saved long term, though I'll make sure and give you a copy if you happen to join.</p>
+<p>See more of my work on my <a href="https://github.com/csmoulaison">github account</a> and my <a href="https://www.connermoulaison.com/">personal website</a>.</p>
 
 {{template "footer"}}

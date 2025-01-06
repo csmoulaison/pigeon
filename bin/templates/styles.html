@@ -13,19 +13,113 @@ body {
 	margin: auto;
 }
 
+p {
+	margin: 16px 0;
+}
+
 a {
 	color: lightblue;
 }
 
+label {
+	font-size: 16px;
+}
+
+.formcontrol {
+	display: flex;
+	justify-content: flex-end;
+	align-items: baseline;
+	gap: 32px;
+	align-self: center;
+	margin-bottom: 32px;
+}
+
+.landingtitle {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 32px;
+}
+
+.landingsub {
+	margin-top: 40px;
+	margin-bottom: 0;
+}
+
+button {
+	background: none;
+	border: none;
+	font-family: "Courier New";
+	font-size: 22px;
+	text-decoration: underline;
+	padding: 0;
+	color: lightblue;
+	cursor: pointer;
+}
+
+.cancel {
+	color: firebrick;
+	font-size: 22px;
+}
+
+.bad {
+	color: firebrick;
+}
+
 .loginform {
+	text-align: center;
+	align-items: center;
+}
+
+.loginform input {
+	text-align: center;
+}
+
+.signupprompt {
+	display: block;
+	margin: 16px 0;
+}
+
+input, textarea {
+	border: none;
+	background: none;
+	color: burlywood;
+	font-size: 22px;
+	font-family: "Courier New";
+	margin-bottom: 20px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible,
+button:focus-visible {
+	outline: 1px solid burlywood;
+}
+
+input:focus::placeholder, textarea:focus::placeholder {
+	color: transparent
+}
+
+textarea {
+	resize: none;
+}
+
+::placeholder {
+	color: lightgrey;
+}
+
+form {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: stretch;
 	gap: 16px;
 }
 
+input[type="checkbox"] {
+	align-self: flex-start;
+}
+
 .imgcontainer {
-	margin: 24px;
+	margin: 32px;
 	display: flex;
 	justify-content: center;
 }
@@ -74,7 +168,7 @@ ul {
 .letterbody {
 	margin-top: 40px;
 	margin-bottom: 40px;
-	font-size: 20px;
+	font-size: 22px;
 }
 
 .backlink {

@@ -14,17 +14,18 @@ type ViewTmplData struct {
 }
 
 func handleView(w http.ResponseWriter, r *http.Request) {
+	u := sessionUser(w, r)
+
 	q := r.URL.Query()
 	idStr := q.Get("id")
 
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-		renderTemplate(w, "badview", nil)
+		renderTemplate(w, "badview", u)
 		return
 	}
 
-	u := sessionUser(w, r)
 	l := Letter{}
 	letter_matched := false
 
@@ -51,7 +52,7 @@ func handleView(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !letter_matched {
-		renderTemplate(w, "badview", nil)
+		renderTemplate(w, "badview", u)
 		return
 	}
 
