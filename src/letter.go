@@ -62,7 +62,7 @@ func (l *Letter) save() error {
 	if !l.Read {
 		readString = "0"
 	}
-	w.WriteString(readString)
+	w.WriteString(readString + "\n")
 	w.WriteString(l.Body)
 	w.Flush()
 

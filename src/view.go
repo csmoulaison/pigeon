@@ -61,6 +61,9 @@ func handleView(w http.ResponseWriter, r *http.Request) {
 		paras = append(paras, s.Text())
 	}
 
+	l.Read = true
+	l.save()
+
 	data := ViewTmplData{Letter: l, User: u, Paragraphs: paras}
 	renderTemplate(w, "view", data)
 }

@@ -1,8 +1,8 @@
 {{template "header" "Sign up"}}
 
-<h1>Slow</h1>
+<h1>Pigeon</h1>
 <h2>Log in</h2>
-<form action="/login/">
+<form class="loginform" action="/login/">
 	<label for="username"><b>Handle</b></label>
 	<input type="text" placeholder="Enter handle" name="username" required>
 
@@ -17,10 +17,6 @@
 
 <a href="/signup/">Sign up</a>
 
-<ul>
-	{{range .Users}}
-	<li>{{.Handle}}</li>
-	{{end}}
-</ul>
+<h2>What is Pigeon?</h2>
 
 {{template "footer"}}
