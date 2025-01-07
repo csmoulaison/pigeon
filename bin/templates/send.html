@@ -3,7 +3,7 @@
 <a class="backlink" href="/mailbox/">&laquo; Back to mailbox</a>
 <form action="/postsend/">
 	<label for="recipient"><b>Send to</b></label>
-	<input type="text" placeholder="Enter recipient handle" name="recipient" required>
+	<input type="text" placeholder="Enter recipient handle" value="{{.Recipient}}" name="recipient" required>
 
 	<label for="title"><b>Title</b></label>
 	<input type="text" placeholder="Enter letter title" name="title" required>
@@ -17,5 +17,5 @@
 	</div>
 </form>
 
-{{template "footernav" .}}
+{{template "footernav" .User}}
 {{template "footer"}}

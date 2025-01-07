@@ -7,7 +7,7 @@ import (
 )
 
 const TokenDir = "data/tokens/"
-const TokenFileExt = ".slowtoken"
+const TokenFileExt = ".tk"
 const TokenCookieStr = "sessiontoken"
 const HandleCookieStr = "sessionhandle"
 

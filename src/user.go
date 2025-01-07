@@ -6,10 +6,11 @@ import (
 	"strings"
 	"encoding/csv"
 	"strconv"
+	"sort"
 )
 
 const UserDir = "data/users/"
-const UserFileExt = ".slowuser"
+const UserFileExt = ".ur"
 
 type User struct {
 	Handle string
@@ -29,6 +30,14 @@ func (u *User) save() error {
 		return err
 	}
 	defer f.Close()
+
+	sort.Strings(u.Rolodex)
+	sort.Slice(u.MailboxCache, func(i, j int) bool {
+        return u.MailboxCache[i] > u.MailboxCache[j]
+    })
+	sort.Slice(u.SentCache, func(i, j int) bool {
+        return u.SentCache[i] > u.SentCache[j]
+    })
 
 	writer := csv.NewWriter(f)
 	defer writer.Flush()

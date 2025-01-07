@@ -9,8 +9,8 @@ html {
 }
 
 body {
-	width: 65ch;
 	margin: auto;
+	max-width: 65ch;
 }
 
 p {
@@ -175,6 +175,32 @@ ul {
 	position: absolute;
 	top: 104px;
 	margin-left: 48px;
+}
+
+.addcontactform {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline
+}
+
+.addcontactform label,
+.addcontactform input,
+.addcontactform button {
+	font-size: 16px;
+	margin: 0;
+}
+
+.addcontactform input {
+	border-bottom: 1px solid burlywood;
+}
+
+.listcontact {
+	display: flex;
+	gap: 16px;
+}
+
+.listdelete {
+	color: firebrick;
 }
 
 </style>

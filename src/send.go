@@ -5,9 +5,16 @@ import (
 	"time"
 )
 
+type SendTmplData struct {
+	User User
+	Recipient string
+}
+
 func handleSend(w http.ResponseWriter, r *http.Request) {
-	u := sessionUser(w, r)
-	renderTemplate(w, "send", u)
+	data := SendTmplData{}
+	data.User = sessionUser(w, r)
+	data.Recipient = r.FormValue("handle")
+	renderTemplate(w, "send", data)
 }
 
 func handlePostSend(w http.ResponseWriter, r *http.Request) {

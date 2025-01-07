@@ -9,7 +9,6 @@ type MailboxTmplData struct {
 	User User
 }
 
-// Mailbox (received)
 func handleMailbox(w http.ResponseWriter, r *http.Request) {
 	data := MailboxTmplData{}
 	data.User = sessionUser(w, r)
@@ -17,19 +16,9 @@ func handleMailbox(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "mailbox", data)
 }
 
-func handleDeleteMail(w http.ResponseWriter, r *http.Request) {
-	// TODO: implement
-}
-
-// Sent
 func handleSent(w http.ResponseWriter, r *http.Request) {
 	data := MailboxTmplData{}
 	data.User = sessionUser(w, r)
 	data.Letters = lettersFromCache(w, data.User.SentCache)
 	renderTemplate(w, "sent", data)
 }
-
-func handleDeleteSent(w http.ResponseWriter, r *http.Request) {
-	// TODO: implement
-}
-

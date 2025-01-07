@@ -1,0 +1,29 @@
+{{template "header" "Rolodex"}}
+{{template "nav"}}
+
+<div class="list">
+	<form class="addcontactform" action="/addcontact/">
+		<label for="handle"><b>Add new contact</b></label>
+		<input type="text" placeholder="Enter contact handle" name="handle" required>
+
+		<button type="submit">Add</button>
+	</form>
+	{{if eq (len .Rolodex) 0}}
+		<p>You haven't saved any contacts yet.</p>
+	{{ else }}
+		<ul class="list">
+			{{range .Rolodex}}
+			<li class="listcontact">
+				<a class='listdelete' href='/deletecontact/?handle={{.}}'>Delete</a>
+				<div class='contacthandle'><strong>{{.}}</strong></div>
+				<div>or</div>
+				<a class='listsend' href='/send/?handle={{.}}'>Send them a letter</a>
+				<div>
+			</li>
+			{{end}}
+		</ul>
+	{{ end }}
+</div>
+
+{{template "footernav" .}}
+{{template "footer"}}

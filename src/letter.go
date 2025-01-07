@@ -10,7 +10,7 @@ import (
 )
 
 const LetterDir = "./data/letters/"
-const LetterFileExt = ".slowletter"
+const LetterFileExt = ".lt"
 const LetterDateFmt = time.DateTime
 
 type Letter struct {

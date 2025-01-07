@@ -46,20 +46,20 @@ func pngRoute(p string, i string) {
 }
 
 func main() {
-	route("/", handleIndex)
+	// Pre login
+	http.HandleFunc("/", handleIndex)
 	route("landing", handleLanding)
 	staticRoute("signup")
 	staticRoute("confirmSignup")
 	route("postsignup", handlePostSignup)
 	route("login", handleLogin)
 	route("logout", handleLogout)
-
+	// Post login
 	lockedRoute("mailbox", handleMailbox)
-	lockedRoute("deletemail", handleDeleteMail)
 	lockedRoute("sent", handleSent)
-	lockedRoute("deletesent", handleDeleteSent)
 	lockedRoute("view", handleView)
 	lockedRoute("rolodex", handleRolodex)
+	lockedRoute("addcontact", handleAddContact)
 	lockedRoute("deletecontact", handleDeleteContact)
 	lockedRoute("settings", handleSettings)
 	lockedRoute("postsettings", handlePostSettings)
