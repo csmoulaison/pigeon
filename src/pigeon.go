@@ -102,7 +102,7 @@ func main() {
 		TLSConfig: cert.TLSConfig(),
 	}
 
-	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirectToTLS)))
+	//log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirectToTLS)))
 	log.Fatal(s.ListenAndServeTLS("", ""))
 
 }
