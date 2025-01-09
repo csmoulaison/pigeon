@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"io/ioutil"
 
-	"golang.org/x/crypto/acme/autocert"
+	//"golang.org/x/crypto/acme/autocert"
 )
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
@@ -89,6 +89,7 @@ func main() {
 	pngRoute("pigeon", "pigeon.png")
 	ttfRoute("proggy", "ProggyVector-Regular.ttf")
 
+	/*
 	cert := &autocert.Manager{
 		Cache:      autocert.DirCache("secret-dir"),
 		Prompt:     autocert.AcceptTOS,
@@ -100,4 +101,7 @@ func main() {
 	}
 
 	log.Fatal(s.ListenAndServeTLS("", ""))
+	*/
+
+	log.Fatal(http.ListenAndServe(":80", nil))
 }

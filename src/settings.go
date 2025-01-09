@@ -19,8 +19,15 @@ func handleSettings(w http.ResponseWriter, r *http.Request) {
 
 func handlePostSettings(w http.ResponseWriter, r *http.Request) {
 	u := sessionUser(w, r)
+
+	p := r.FormValue("password")
+	if p != "" {
+		u.Password = p
+	}
+
 	u.Email = r.FormValue("email")
 	u.NotifyByEmail = r.FormValue("notifybyemail") != ""
+
 	u.save()
 	http.Redirect(w, r, "/settings/saved/", http.StatusFound)
 }

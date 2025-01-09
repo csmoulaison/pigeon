@@ -1,12 +1,15 @@
 {{template "header" "Settings"}}
 {{template "nav"}}
 
-<h1>Settings</h1>
 <form class="settingsform" action="/postsettings/">
 	{{if .JustSaved}}
 	<div class="bad">Settings successfully saved!</div>
 	{{end}}
-	<label for="email"><b>Optional email used to notify you of new messages.</b></label>
+
+	<label for="password"><b>New password</b></label>
+	<input type="password" placeholder="Enter new password" name="password" autocomplete="off">
+
+	<label for="email"><b>Notification email</b></label>
 	<input value={{.User.Email}} type="email" placeholder="Enter email" name="email">
 
 	<div>

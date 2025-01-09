@@ -133,7 +133,7 @@ func carriedLettersFromCache(w http.ResponseWriter, cache[]int) []Letter {
 		}
 
 		// Continue if two days have not elapsed since the letter was sent.
-		if l.Created.AddDate(0, 0, 2).After(time.Now()) {
+		if time.Now().After(l.Created.AddDate(0, 0, 2)) {
 			letters = append(letters, l)
 		}
 	}
