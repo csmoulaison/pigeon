@@ -95,7 +95,7 @@ func main() {
 		HostPolicy: autocert.HostWhitelist("hellopigeon.net", "www.hellopigeon.net"),
 	}
 	s := &http.Server{
-		Addr:      ":443",
+		Addr:      ":https",
 		TLSConfig: cert.TLSConfig(),
 	}
 
