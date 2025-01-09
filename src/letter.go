@@ -132,8 +132,8 @@ func carriedLettersFromCache(w http.ResponseWriter, cache[]int) []Letter {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 
-		// Check if two days have elapsed since the letter was sent.
-		if l.Created.AddDate(0, 0, 2).After(time.Now()) {
+		// Continue if two days have not elapsed since the letter was sent.
+		if l.Created.AddDate(0, 0, 2).Before(time.Now()) {
 			continue
 		}
 		
