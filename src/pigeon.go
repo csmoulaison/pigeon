@@ -63,6 +63,10 @@ func ttfRoute(p string, i string) {
 	http.HandleFunc("/" + p + "/", handler)
 }
 
+func redirectToTLS(w http.ResponseWriter, r *http.Request) {
+    http.Redirect(w, r, "https://hellopigeon.net:443"+r.RequestURI, http.StatusMovedPermanently)
+}
+
 func main() {
 	// Pre login
 	http.HandleFunc("/", handleIndex)
@@ -98,7 +102,7 @@ func main() {
 		TLSConfig: cert.TLSConfig(),
 	}
 
+	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(redirectToTLS)))
 	log.Fatal(s.ListenAndServeTLS("", ""))
 
-	//log.Fatal(http.ListenAndServe(":80", nil))
 }
