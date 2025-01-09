@@ -3,7 +3,6 @@ package main
 // TODO:
 // - email
 // - delay
-// - (new) indicator didn't work for me once. not sure why?
 
 import (
 	"log"
@@ -100,8 +99,5 @@ func main() {
 		TLSConfig: cert.TLSConfig(),
 	}
 
-	// http redirect to https
-	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(m.HTTPHandler(nil)))
-	// https
 	log.Fatal(s.ListenAndServeTLS("", ""))
 }

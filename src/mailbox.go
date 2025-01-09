@@ -12,7 +12,7 @@ type MailboxTmplData struct {
 func handleMailbox(w http.ResponseWriter, r *http.Request) {
 	data := MailboxTmplData{}
 	data.User = sessionUser(w, r)
-	data.Letters = lettersFromCache(w, data.User.MailboxCache)
+	data.Letters = carriedLettersFromCache(w, data.User.MailboxCache)
 	renderTemplate(w, "mailbox", data)
 }
 

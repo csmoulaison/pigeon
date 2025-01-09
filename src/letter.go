@@ -124,3 +124,21 @@ func lettersFromCache(w http.ResponseWriter, cache []int) []Letter {
 	return letters
 }
 
+func carriedLettersFromCache(w http.ResponseWriter, cache[]int) []Letter {
+	letters := []Letter{}
+	for _, id := range cache {
+		l, err := loadLetter(id)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		// Check if two days have elapsed since the letter was sent.
+		if l.Created.Compare(time.Now().AddDate(0, 0, 2)) >= 1 {
+			continue
+		}
+		
+		letters = append(letters, l)
+	}
+	return letters
+}
+
