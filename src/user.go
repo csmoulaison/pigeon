@@ -9,14 +9,13 @@ import (
 	"sort"
 )
 
-const UserDir = "data/users/"
+const UserDir = "../../data/users/"
 const UserFileExt = ".ur"
 
 type User struct {
 	Handle string
 	Password string
 	Rolodex []string
-	DisplayName string
 	Email string
 	NotifyByEmail bool
 	MailboxCache []int
@@ -53,7 +52,6 @@ func (u *User) save() error {
 		"D",
 		u.Handle, 
 		u.Password, 
-		u.DisplayName, 
 		u.Email, 
 		notifyString}
 	writer.Write(userDetails)
@@ -111,10 +109,9 @@ func loadUser(handle string) (User, error) {
 		case "D": // Detail
 			u.Handle      = row[1]
 			u.Password    = row[2]
-			u.DisplayName = row[3]
-			u.Email       = row[4]
+			u.Email       = row[3]
 			// Conversion from string to bool for NotifyByEmail
-			if row[5] == "0" {
+			if row[4] == "0" {
 				u.NotifyByEmail = false
 			} else {
 				u.NotifyByEmail = true

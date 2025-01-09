@@ -1,4 +1,4 @@
-module github.com/csmoulaison/slow
+module github.com/csmoulaison/pigeon
 
 go 1.22.4
 

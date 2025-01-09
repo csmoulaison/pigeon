@@ -1,5 +1,10 @@
 package main
 
+// TODO:
+// - email
+// - delay
+// - (new) indicator didn't work for me once. not sure why?
+
 import (
 	"log"
 	"net/http"
@@ -45,6 +50,19 @@ func pngRoute(p string, i string) {
 	http.HandleFunc("/" + p + "/", handler)
 }
 
+func ttfRoute(p string, i string) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		buf, err := ioutil.ReadFile("assets/" + i)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+
+		w.Header().Set("Content-Type", "font/ttf")
+		w.Write(buf)
+	}
+	http.HandleFunc("/" + p + "/", handler)
+}
+
 func main() {
 	// Pre login
 	http.HandleFunc("/", handleIndex)
@@ -68,7 +86,7 @@ func main() {
 	lockedRoute("confirmsend", handleConfirmSend)
 
 	pngRoute("pigeon", "pigeon.png")
+	ttfRoute("proggy", "ProggyVector-Regular.ttf")
 
-	// TODO: Maybe command line arg for port?
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":80", nil))
 }

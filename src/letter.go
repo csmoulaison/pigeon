@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const LetterDir = "./data/letters/"
+const LetterDir = "../../data/letters/"
 const LetterFileExt = ".lt"
 const LetterDateFmt = time.DateTime
 

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-const TokenDir = "data/tokens/"
+const TokenDir = "../../data/tokens/"
 const TokenFileExt = ".tk"
 const TokenCookieStr = "sessiontoken"
 const HandleCookieStr = "sessionhandle"
@@ -16,10 +16,9 @@ func handlePostSignup(w http.ResponseWriter, r *http.Request) {
 	u := &User{
 		Handle: r.FormValue("username"),
 		Password: r.FormValue("password"),
-		DisplayName: r.FormValue("displayname"),
 		Email: r.FormValue("email"),
 		// Checkboxes aren't sent as form values if they aren't checked, hence:
-		NotifyByEmail: (r.FormValue("notifybyemail") != "")}
+		NotifyByEmail: r.FormValue("notifybyemail") != ""}
 	u.save()
 	http.Redirect(w, r, "/confirmsignup/", http.StatusFound)
 }
