@@ -2,14 +2,13 @@ package main
 
 // TODO:
 // - email
-// - delay
 
 import (
 	"log"
 	"net/http"
 	"io/ioutil"
 
-	//"golang.org/x/crypto/acme/autocert"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
