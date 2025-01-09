@@ -89,7 +89,6 @@ func main() {
 	pngRoute("pigeon", "pigeon.png")
 	ttfRoute("proggy", "ProggyVector-Regular.ttf")
 
-	/*
 	cert := &autocert.Manager{
 		Cache:      autocert.DirCache("secret-dir"),
 		Prompt:     autocert.AcceptTOS,
@@ -101,7 +100,6 @@ func main() {
 	}
 
 	log.Fatal(s.ListenAndServeTLS("", ""))
-	*/
 
-	log.Fatal(http.ListenAndServe(":80", nil))
+	//log.Fatal(http.ListenAndServe(":80", nil))
 }
