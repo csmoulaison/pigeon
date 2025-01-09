@@ -1,9 +1,0 @@
-D,harbinger,SteveBuscemi69!,hpinst@gmail.com,1
-C,aspentree
-C,hannahbee
-C,punchman8
-C,samson_del
-R,1
-S,4
-S,3
-S,2
