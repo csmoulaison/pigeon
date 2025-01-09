@@ -90,18 +90,18 @@ func main() {
 	pngRoute("pigeon", "pigeon.png")
 	ttfRoute("proggy", "ProggyVector-Regular.ttf")
 
-	/*log.Fatal(http.ListenAndServe(":80", autocert.NewHandler("hellopigeon.net")))
-	log.Fatal(http.Serve(autocert.NewListener("example.com"), handler))
-	log.Fatal(http.ListenAndServe(autocert.NewListener("hellopigeon.net"), nil))*/
-
 	cert := &autocert.Manager{
 		Cache:      autocert.DirCache("secret-dir"),
 		Prompt:     autocert.AcceptTOS,
 		HostPolicy: autocert.HostWhitelist("hellopigeon.net", "www.hellopigeon.net"),
 	}
 	s := &http.Server{
-		Addr:      ":https",
+		Addr:      ":443",
 		TLSConfig: cert.TLSConfig(),
 	}
+
+	// http redirect to https
+	log.Fatal(http.ListenAndServe(":80", http.HandlerFunc(m.HTTPHandler(nil)))
+	// https
 	log.Fatal(s.ListenAndServeTLS("", ""))
 }
